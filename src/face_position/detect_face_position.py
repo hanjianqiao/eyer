@@ -22,5 +22,7 @@ def detectFaces(image_name):
 if __name__ == '__main__':
     tmpfile = '232412tmp.jpg'
     subprocess.call(["raspistill","-w","400","-h","400","-e","jpg","-n","-t","1","-o",tmpfile])
-    detectFaces(tmpfile)
+    faces = detectFaces(tmpfile)
+    for i in range(0, len(faces), 1):
+        print(faces[i])
     os.remove(tmpfile)

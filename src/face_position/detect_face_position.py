@@ -3,6 +3,7 @@
 import cv2
 import os
 import subprocess
+import time
 
 
 def detectFaces(image_name):
@@ -15,14 +16,18 @@ def detectFaces(image_name):
     faces = face_cascade.detectMultiScale(gray, 1.2, 5)#1.3和5是特征的最小、最大检测窗口，它改变检测结果也会改变
     result = []
     for (x,y,width,height) in faces:
-        result.append((x,y,x+width,y+height))
+        result.append((x+width/2,y+height/2,width,height))
     return result
 
 
-if __name__ == '__main__':
+def loop():
     tmpfile = '232412tmp.jpg'
     subprocess.call(["raspistill","-w","400","-h","400","-e","jpg","-n","-t","1","-o",tmpfile])
     faces = detectFaces(tmpfile)
     for i in range(0, len(faces), 1):
         print(faces[i])
     os.remove(tmpfile)
+    time.sleep(1)
+
+if __name__ == '__main__':
+    loop()

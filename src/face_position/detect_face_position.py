@@ -2,6 +2,7 @@
 
 import cv2
 import os
+import subprocess
 
 
 def detectFaces(image_name):
